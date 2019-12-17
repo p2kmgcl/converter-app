@@ -6,14 +6,15 @@ import PremiumLabel from './PremiumLabel';
 import ThemeSelector from './ThemeSelector';
 import BecomePremiumButton from './BecomePremiumButton';
 import usePreferredColorScheme from '../hooks/usePreferredColorScheme';
+import useCachedState from '../hooks/useCachedState';
 
 const MAX_CONVERSION_COUNT = 5;
 
 export default function App() {
   const [conversionCount, setConversionCount] = useState(0);
   const preferredColorScheme = usePreferredColorScheme();
-  const [selectedTheme, setSelectedTheme] = useState('');
-  const [premium, setPremium] = useState(false);
+  const [selectedTheme, setSelectedTheme] = useCachedState('theme', '');
+  const [premium, setPremium] = useCachedState('premium', false);
 
   const theme = selectedTheme || preferredColorScheme;
 
