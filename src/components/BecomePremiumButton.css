@@ -1,0 +1,11 @@
+.BecomePremiumButton {
+  color: inherit;
+  background: transparent;
+  border: currentColor solid thin;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  will-change: box-shadow;
+}

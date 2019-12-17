@@ -1,0 +1,34 @@
+.Amount {
+  display: flex;
+  align-items: center;
+}
+
+.Amount + .Amount {
+  margin-top: 8px;
+}
+
+.Amount__label {
+  font-weight: bolder;
+  width: 5ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Amount__input {
+  color: inherit;
+  background: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  border: solid thin currentColor;
+  padding: 4px 8px;
+  margin-left: 1ch;
+  border-radius: 4px;
+  transition: background ease 0.3s, color ease 0.3s;
+  width: 20ch;
+  will-change: background, color;
+}
+
+.Amount--negative .Amount__input {
+  background: indianred;
+  color: lightyellow;
+}

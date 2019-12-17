@@ -1,0 +1,18 @@
+.ThemeSelector__label {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+.ThemeSelector__input {
+  font-family: inherit;
+  font-size: 1rem;
+  color: inherit;
+  background: inherit;
+  margin-left: 1ch;
+  min-width: 10ch;
+  background: transparent;
+  border: currentColor solid thin;
+  border-radius: 4px;
+  padding: 4px 8px;
+}

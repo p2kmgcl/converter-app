@@ -1,0 +1,10 @@
+.PremiumLabel {
+  margin: 0;
+  font-size: 0.9rem;
+  font-style: italic;
+  display: inline-block;
+  border-radius: 4px;
+  padding: 2px 4px;
+  color: gold;
+  background: rgba(0, 0, 0, 0.8);
+}

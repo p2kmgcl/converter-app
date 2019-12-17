@@ -1,0 +1,18 @@
+.Converter {
+  margin: 16px;
+  padding: 10px;
+  border: solid thin currentColor;
+  border-radius: 4px;
+}
+
+.Converter__header {
+  margin: 0 0 16px;
+  text-align: right;
+  opacity: 0.5;
+}
+
+.Converter__title {
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0;
+}
