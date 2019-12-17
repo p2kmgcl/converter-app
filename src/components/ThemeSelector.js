@@ -17,6 +17,7 @@ export default function ThemeSelector({ theme, onChange }) {
           onChange={handleChange}
           value={theme}
         >
+          <option value="">(Auto)</option>
           <option value="dark">Dark Theme</option>
           <option value="light">Light Theme</option>
         </select>

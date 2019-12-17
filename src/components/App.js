@@ -5,13 +5,17 @@ import ConverterContext from '../contexts/ConverterContext';
 import PremiumLabel from './PremiumLabel';
 import ThemeSelector from './ThemeSelector';
 import BecomePremiumButton from './BecomePremiumButton';
+import usePreferredColorScheme from '../hooks/usePreferredColorScheme';
 
 const MAX_CONVERSION_COUNT = 5;
 
 export default function App() {
   const [conversionCount, setConversionCount] = useState(0);
-  const [theme, setTheme] = useState('light');
+  const preferredColorScheme = usePreferredColorScheme();
+  const [selectedTheme, setSelectedTheme] = useState('');
   const [premium, setPremium] = useState(false);
+
+  const theme = selectedTheme || preferredColorScheme;
 
   const handleConvert = () => {
     setConversionCount(prevConversionCount => prevConversionCount + 1);
@@ -28,7 +32,7 @@ export default function App() {
     <ConverterContext.Provider value={{ theme, premium }}>
       <main className={`App App--${theme}`}>
         <header className="App__header">
-          <ThemeSelector theme={theme} onChange={setTheme} />
+          <ThemeSelector theme={selectedTheme} onChange={setSelectedTheme} />
 
           {premium ? (
             <PremiumLabel />
