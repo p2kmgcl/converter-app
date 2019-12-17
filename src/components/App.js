@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Converter from './Converter';
 import ConverterContext from '../contexts/ConverterContext';
 import PremiumLabel from './PremiumLabel';
@@ -8,77 +8,51 @@ import BecomePremiumButton from './BecomePremiumButton';
 
 const MAX_CONVERSION_COUNT = 5;
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+export default function App() {
+  const [conversionCount, setConversionCount] = useState(0);
+  const [theme, setTheme] = useState('light');
+  const [premium, setPremium] = useState(false);
 
-    this.state = {
-      theme: 'light',
-      conversionCount: 0,
-      premium: false,
-    };
-  }
+  const handleConvert = () => {
+    setConversionCount(prevConversionCount => prevConversionCount + 1);
+  };
 
-  componentDidUpdate() {
-    const { conversionCount, premium } = this.state;
-
+  useEffect(() => {
     if (!premium && conversionCount > MAX_CONVERSION_COUNT) {
       alert('Convert without limits with out Premium Package');
-      this.setState({ conversionCount: 0 });
+      setConversionCount(0);
     }
-  }
+  }, [conversionCount, premium]);
 
-  handleBecomePremiumButtonClick = () => {
-    this.setState({ premium: true });
-  };
+  return (
+    <ConverterContext.Provider value={{ theme, premium }}>
+      <main className={`App App--${theme}`}>
+        <header className="App__header">
+          <ThemeSelector theme={theme} onChange={setTheme} />
 
-  handleConvert = () => {
-    this.setState(({ conversionCount }) => ({
-      conversionCount: conversionCount + 1,
-    }));
-  };
+          {premium ? (
+            <PremiumLabel />
+          ) : (
+            <BecomePremiumButton onClick={() => setPremium(true)} />
+          )}
+        </header>
 
-  handleThemeChange = theme => {
-    this.setState({
-      theme,
-    });
-  };
+        <section className="App__section">
+          <Converter
+            cryptoLabel="Bitcoins"
+            cryptoShortLabel="BTC"
+            exchangeRate={0.5}
+            onConvert={handleConvert}
+          />
 
-  render() {
-    const { theme, premium } = this.state;
-
-    return (
-      <ConverterContext.Provider value={{ theme, premium }}>
-        <main className={`App App--${theme}`}>
-          <header className="App__header">
-            <ThemeSelector theme={theme} onChange={this.handleThemeChange} />
-
-            {premium ? (
-              <PremiumLabel />
-            ) : (
-              <BecomePremiumButton
-                onClick={this.handleBecomePremiumButtonClick}
-              />
-            )}
-          </header>
-
-          <section className="App__section">
-            <Converter
-              cryptoLabel="Bitcoins"
-              cryptoShortLabel="BTC"
-              exchangeRate={0.5}
-              onConvert={this.handleConvert}
-            />
-
-            <Converter
-              cryptoLabel="Ethereum"
-              cryptoShortLabel="ETH"
-              exchangeRate={1.2}
-              onConvert={this.handleConvert}
-            />
-          </section>
-        </main>
-      </ConverterContext.Provider>
-    );
-  }
+          <Converter
+            cryptoLabel="Ethereum"
+            cryptoShortLabel="ETH"
+            exchangeRate={1.2}
+            onConvert={handleConvert}
+          />
+        </section>
+      </main>
+    </ConverterContext.Provider>
+  );
 }
