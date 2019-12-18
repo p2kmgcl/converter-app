@@ -1,7 +1,8 @@
 import './Amount.css';
-import React, { useContext, useRef, useLayoutEffect } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import ConverterContext from '../contexts/ConverterContext';
+import useFocusOnMount from '../hooks/useFocusOnMount';
 
 export default function Amount({
   label,
@@ -12,7 +13,7 @@ export default function Amount({
 }) {
   const { premium } = useContext(ConverterContext);
   const negative = Number.isNaN(value) ? false : value < 0;
-  const inputRef = useRef(null);
+  const focusOnMountRef = useFocusOnMount();
 
   const handleChange = event => {
     const value = parseFloat(event.target.value);
@@ -21,15 +22,6 @@ export default function Amount({
       onChange(value);
     }
   };
-
-  useLayoutEffect(() => {
-    if (focusOnMount && inputRef.current) {
-      inputRef.current.focus();
-    }
-    // We really want to do this just on first mount,
-    // messing with user's focus is dangerous.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <label
@@ -49,7 +41,7 @@ export default function Amount({
         step="0.1"
         type="number"
         value={value}
-        ref={inputRef}
+        ref={focusOnMount ? focusOnMountRef : null}
       />
     </label>
   );
