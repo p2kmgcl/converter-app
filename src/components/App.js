@@ -51,6 +51,7 @@ export default function App() {
           />
 
           <Converter
+            focusOnMount
             cryptoLabel="Ethereum"
             cryptoShortLabel="ETH"
             exchangeRate={1.2}

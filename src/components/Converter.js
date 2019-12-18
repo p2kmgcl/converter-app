@@ -9,6 +9,7 @@ export default function Converter({
   cryptoLabel,
   cryptoShortLabel,
   exchangeRate,
+  focusOnMount = false,
   onConvert,
 }) {
   const [eurosValue, setEurosValue] = useState(0);
@@ -27,7 +28,13 @@ export default function Converter({
         {premium && <PremiumLabel />}
       </header>
 
-      <Amount label="EUR" onChange={handleChange} value={eurosValue} />
+      <Amount
+        focusOnMount={focusOnMount}
+        label="EUR"
+        onChange={handleChange}
+        value={eurosValue}
+      />
+
       <Amount label={cryptoShortLabel} value={cryptoValue} readOnly />
     </form>
   );
@@ -38,5 +45,6 @@ Converter.propTypes = {
   cryptoShortLabel: PropTypes.string.isRequired,
   exchangeRate: PropTypes.number.isRequired,
 
+  focusOnMount: PropTypes.bool,
   onConvert: PropTypes.func,
 };
